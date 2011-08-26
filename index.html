@@ -1,9 +1,91 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.1.0.min.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>OER Evaluation Tool Demo</h1>
+      <p>Enter the URL to be evaluated and click "Evaluate".</p>
+      <form id="evaluate-form">
+        <div class="clearfix">
+          <label for="url">URL</label>
+          <div class="input">
+            <input class="xlarge" type="text" name="url" id="url" placeholder="http://">
+            <button type="submit" class="btn primary">Evaluate</button>
+          </div>
+        </div>
+      </form>
+      <div id="popup" style="padding: 0">
+      </div>
+      <h2>Source Code</h2>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.1.0.min.css"&gt;
+    &lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;form id="evaluate-form"&gt;
+      &lt;label for="url"&gt;URL&lt;/label&gt;
+      &lt;input type="text" name="url" id="url" placeholder="http://"&gt;
+      &lt;button type="submit"&gt;Evaluate&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;div id="popup" style="padding: 0"&gt;
+    &lt;/div&gt;
+    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"&gt;&lt;/script&gt;
+    &lt;script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"&gt;&lt;/script&gt;
+    &lt;script src="oer-evaluation-tool.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+      $(function() {
+        var $form = $("#evaluate-form");
+        var $popup = $("#popup");
+        $popup.dialog({
+            title: "Evaluate Resource",
+            width: 600,
+            resizable: false,
+            autoOpen: false
+        });
+        $form.submit(function(e) {
+          e.preventDefault();
+          var url = $form.find("#url").val();
+          $popup.empty();
 
-</head>
-<body>
+          OEREvaluationTool($popup.get(0), url);
 
-</body>
+          $popup.dialog("open");
+        });
+      });
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script src="https://raw.github.com/ISKME/oer-evaluation-tool.js/master/oer-evaluation-tool.js"></script>
+    <script>
+      window.OEREvaluationToolBaseURL = "http://staging.oercommons.org/evaluate";
+    </script>
+    <script>
+      $(function() {
+        var $form = $("#evaluate-form");
+        var $popup = $("#popup");
+        $popup.dialog({
+            title: "Evaluate Resource",
+            width: 600,
+            resizable: false,
+            autoOpen: false
+        });
+        $form.submit(function(e) {
+          e.preventDefault();
+          var url = $form.find("#url").val();
+          $popup.empty();
+          OEREvaluationTool($popup.get(0), url);
+          $popup.dialog("open");
+        });
+      });
+    </script>
+  </body>
 </html>
